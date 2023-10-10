@@ -1,0 +1,12 @@
+U100,정다독,010-2425-8285,dadoc2@naver.com,dadoc2,1111,1
+U101,김수진,010-1234-5678,jinjin@gmail.com,jini2,1111,1
+U102,박나래,010-2341-6785,nana@gmail.com,nana1,1111,1
+U103,염현빈,010-3451-7890,binbin@gmail.com,bini5,1111,1
+U104,차수민,010-4567-8760,minmin@gmail.com,mini4,1111,1
+U105,허수경,010-6432-0876,susu@gmail.com,susu6,1111,1
+U106,김도일,010-5678-1456,dodo1@naver.com,love_do1,1111,1
+U107,이상우,010-4523-6790,sangwoo23@icloud.com,swsw23,1111,1
+U108,한사랑행복,010-7812-9012,lovehappy1004@naver.com,happylove99,1111,1
+U109,권율,010-2455-9090,yuliyuli@kwoni.com,mrkwon3,1111,1
+U110,최가상,010-9393-7878,fakechoi@abc.com,iamfake5,1111,1
+A100,관리자,010-4321-7654,admin@gmail.com,admin1,1111,0
