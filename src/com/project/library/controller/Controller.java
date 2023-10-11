@@ -1,15 +1,17 @@
 package com.project.library.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.project.library.model.dao.ApplyBookDao;
 import com.project.library.model.dao.BookDao;
+import com.project.library.model.dao.DeleteBookDao;
 import com.project.library.model.dao.RentalBookDao;
+import com.project.library.model.dao.ReturnBookDao;
 import com.project.library.model.dao.UserDao;
 import com.project.library.model.vo.ApplyBookVo;
 import com.project.library.model.vo.BookVo;
 import com.project.library.model.vo.RentalBookVo;
-import com.project.library.model.vo.UserVo;
 import com.project.library.view.DeleteBookView;
 import com.project.library.view.MainView;
 import com.project.library.view.MsgView;
@@ -135,19 +137,48 @@ public class Controller {
 	}
 
 
-	
-	public static void returnBook() {
+	// 도서 반납
+	public static void returnBookView() {
 		ReturnBookView.getReturnBookView();
 	}
 	
-	public static void deleteBook() {
+	public static ArrayList<RentalBookVo> getRentalBooks() {
+		return ReturnBookDao.getRentalBooks();
+	}
+	
+	public static Calendar getReturnDue(RentalBookVo b) {
+		return ReturnBookDao.getReturnDue(b);
+	}
+	
+	public static boolean checkValidation(ArrayList<RentalBookVo> list, int num) {
+		return ReturnBookDao.checkValidation(list, num);
+	}
+	
+	public static Calendar returnBook(ArrayList<RentalBookVo> list, int num) {
+		return ReturnBookDao.returnBook(list, num);
+	}
+	
+	// 도서 삭제
+	public static void deleteBookView() {
 		DeleteBookView.getDeleteBookView();
 	}
+	
+	public static boolean checkBookExistence(String isbn) {
+		return DeleteBookDao.checkBookExistence(isbn);
+	}
+	
+	public static boolean checkBookRented(String isbn) {
+		return DeleteBookDao.checkBookRented(isbn);
+	}
+	
+	public static void deleteBook(String isbn) {
+		DeleteBookDao.deleteBook(isbn);
+	}
+
+	
 
 	public static void save() {
 		MainView.save();
 	}
-
-
 
 }

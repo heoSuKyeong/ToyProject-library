@@ -1,9 +1,9 @@
 ﻿package com.project.library.view;
 
-
 import java.util.Scanner;
 
-
+import com.project.library.controller.Controller;
+import com.project.library.model.dao.UserDao;
 
 public class MemberView {
 	
@@ -28,13 +28,14 @@ public class MemberView {
 			Controller.dash();
 			
 			switch(input) {
-				case 1 : rentalbook();break;
-				case 2 : returnBook();break;
-				case 3 : applyBookView();break;
-				case 4 : rentalChView();break;
-				case 5 : if(chagePw() == 1) {
+			
+				case 1 : rentalbook(); break;
+				case 2 : Controller.returnBookView(); break;
+				case 3 : applyBookView(); break;
+				case 4 : rentalChView(); break;
+				case 5 : if (chagePw() == 1) {
 							return;
-						}else {
+						} else {
 							break;
 						}
 				case 6 : System.out.println("로그아웃되었습니다.");
@@ -44,22 +45,9 @@ public class MemberView {
 				default : Controller.msg();break;
 			
 			}
+			
 		}
+		
 	}
 	
-
-
-
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-

@@ -1,26 +1,23 @@
 package com.project.library.model.dao;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.project.library.model.vo.RentalBooksVo;
+import com.project.library.model.vo.RentalBookVo;
 
 public class ReturnBookDao {
 	
 	// 미반납 내역
-	public static ArrayList<RentalBooksVo> getRentalBooks() {
+	public static ArrayList<RentalBookVo> getRentalBooks() {
 		
-		TrueBookDao.load();
-		FalseBookDao.load();
-		RentalBooksDao.load();
+		BookDao.load();
+		RentalBookDao.load();
 		
-		ArrayList<RentalBooksVo> list = new ArrayList<RentalBooksVo>();
+		ArrayList<RentalBookVo> list = new ArrayList<RentalBookVo>();
 		
-		for (RentalBooksVo b : RentalBooksDao.getRentalBooks()) {
+		for (RentalBookVo b : RentalBookDao.rbs) {
 			
-			if (b.getReturnFlag().equals("N")) {
+			if (b.getUserNo().equals(UserDao.auth.getUserNo()) && b.getReturnFlag().equals("N")) {
 				
 				list.add(b);
 				
@@ -33,7 +30,7 @@ public class ReturnBookDao {
 	}
 	
 	// 반납예정일 계산
-	public static Calendar getReturnDue(RentalBooksVo b) {
+	public static Calendar getReturnDue(RentalBookVo b) {
 		
 		Calendar due = Calendar.getInstance();
 		int dueYear = Integer.parseInt(b.getRentalDate().substring(0, 4));
@@ -46,75 +43,47 @@ public class ReturnBookDao {
 		
 	}
 	
-	// 변경 사항 저장
-	public static void save() {
+	// 일련번호 유효성 검사
+	public static boolean checkValidation(ArrayList<RentalBookVo> list, int num) {
 		
-		try {
-					
-			String path = String.format("data\\rentalBook.txt");
-			
-			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-			
-			for (RentalBooksVo b : RentalBooksDao.rbs) {
-				
-				writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
-										   b.getNum(), b.getUserNo(), b.getISBN(), b.getRentalDate(), b.getReturnDate(), b.getReturnFlag()));
-						
-			}
-					
-			writer.close();
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			
+		boolean result = false;
+		
+		for (RentalBookVo b : list) {
+	    	
+	        if (UserDao.auth.getUserNo().equals(b.getUserNo()) && b.getReturnFlag().equals("N") && b.getNum() == num) {
+	        	
+	        	result = true;
+	        	
+	        }
+	        
 		}
-
+		
+		return result;
+		
 	}
+
 	
 	// 반납 처리
-	public static Calendar returnBook(ArrayList<RentalBooksVo> list, int num) {
-		
-		boolean success = false;
+	public static Calendar returnBook(ArrayList<RentalBookVo> list, int num) {
 		
 		Calendar today = Calendar.getInstance();
 	    int year = today.get(Calendar.YEAR);
 	    int month = today.get(Calendar.MONTH) + 1;
 	    int date = today.get(Calendar.DATE);
 
-	    RentalBooksVo returnedBook = null;
-
-	    for (RentalBooksVo b : list) {
+	    for (RentalBookVo b : list) {
 	    	
-	        if (UserDao.auth.getUserNo().equals(b.getUserNo()) && b.getReturnFlag().equals("N") && b.getNum() == num) {
-	        	
-	            String returnDate = String.format("%d-%d-%d", year, month, date);
-	            
-	            b.setReturnDate(returnDate);
-	            b.setReturnFlag("Y");
-	            
-	            success = true;
-	            
-	            returnedBook = b;
-
-	            break;
-	            
-	        }
+	        String returnDate = String.format("%d-%d-%d", year, month, date);
 	        
-	    }
-
-	    if (success) {
-	    	
-	        save();
-
-	        long overtime = today.getTimeInMillis() - getReturnDue(returnedBook).getTimeInMillis();
+	        b.setReturnDate(returnDate);
+	        b.setReturnFlag("Y");
+	        
+	        RentalBookDao.save();
+	        
+	        long overtime = today.getTimeInMillis() - getReturnDue(b).getTimeInMillis();
 	        int overDate = (int) (overtime / 1000 / 60 / 60 / 24) + 1;
 	        today.add(Calendar.DATE, overDate);
 	        
-	    } else {
-	    	
-	    	today.set(0, 0, 1);
-	    	
 	    }
 	    
 	    return today;

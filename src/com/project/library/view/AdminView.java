@@ -27,7 +27,7 @@ public class AdminView {
 
 			switch (input) {
 			case "1": bookAddView();break;
-			case "2": bookDel();break;
+			case "2": Controller.deleteBookView(); break;
 			case "3":
 				System.out.println("[연체 관리]");
 				break;

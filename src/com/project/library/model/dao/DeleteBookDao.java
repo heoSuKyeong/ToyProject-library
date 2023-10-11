@@ -1,25 +1,21 @@
 package com.project.library.model.dao;
 
-import java.util.Scanner;
-
-import com.project.library.controller.Controller;
-import com.project.library.model.vo.FalseBookVo;
-import com.project.library.model.vo.RentalBooksVo;
-import com.project.library.model.vo.TrueBookVo;
+import com.project.library.model.vo.BookVo;
+import com.project.library.model.vo.RentalBookVo;
 
 public class DeleteBookDao {
 	
+	// 해당 도서의 존재 확인
 	public static boolean checkBookExistence(String isbn) {
 		
-		TrueBookDao.load();
-		FalseBookDao.load();
-		RentalBooksDao.load();
+		BookDao.load();
+		RentalBookDao.load();
 		
 		boolean isBookExisted = false;
 		
-		for (TrueBookVo t : TrueBookDao.list) {
+		for (BookVo t : BookDao.tBook) {
 			
-			if (isbn.equals(t.getIsbn())) {
+			if (isbn.equals(t.getISBN())) {
 
 				isBookExisted = true;
 				break;
@@ -28,9 +24,9 @@ public class DeleteBookDao {
 			
 		}
 
-		for (FalseBookVo f : FalseBookDao.list) {
+		for (BookVo f : BookDao.fBook) {
 					
-			if (isbn.equals(f.getIsbn())) {
+			if (isbn.equals(f.getISBN())) {
 
 				isBookExisted = true;
 				break;
@@ -42,12 +38,13 @@ public class DeleteBookDao {
 		return isBookExisted;
 	    
 	}
-
-	public static void deleteBook(String isbn) {
-	    	
-	    boolean isBookRented = false;
-	    	
-	    for (RentalBooksVo b : RentalBooksDao.rbs) {
+	
+	// 대출 여부 확인
+	public static boolean checkBookRented(String isbn) {
+		
+		boolean isBookRented = false;
+    	
+	    for (RentalBookVo b : RentalBookDao.rbs) {
 	    		
 	    	if (isbn.equals(b.getISBN())) {
 	    		
@@ -57,67 +54,38 @@ public class DeleteBookDao {
 	        }
 	    		
 	    }
+	    
+	    return isBookRented;
+		
+	}
 
-	    if (isBookRented) {
-	        	
-	        System.out.println("해당 도서는 대출 중이므로 삭제 불가합니다.");
-	        return;
-	            
-	    } else {
-	        	
-	        Scanner scan = new Scanner(System.in);
-
-	        while (true) {
-	        	
-	        	Controller.dash();
-	        	
-	        	System.out.print("해당 도서를 삭제하시겠습니까?(Y/N): ");
-	 	        String answer = scan.nextLine();
-
-	 	        if (answer.equalsIgnoreCase("Y")) {
-	 	        	
-	 	        	for (TrueBookVo t : TrueBookDao.list) {
-	 	    			
-	 	    			if (isbn.equals(t.getIsbn())) {
-
-	 	    				TrueBookDao.list.remove(t);
-	 	    				TrueBookDao.save();
-	 	    				break;
-	 	    				
-	 	    			}
-	 	    			
-	 	        	}
-	 	    				
-	 	    		for (FalseBookVo f : FalseBookDao.list) {
-	 	    					
-	 	    			if (isbn.equals(f.getIsbn())) {
-
-	 	    				FalseBookDao.list.remove(f);
-	 	    				FalseBookDao.save();
-	 	    				break;
+	// 도서 삭제
+	public static void deleteBook(String isbn) {
+		
+		for (BookVo t : BookDao.tBook) {
+	 			
+	 		if (isbn.equals(t.getISBN())) {
+	 				
+	 			BookDao.tBook.remove(t);
+	 			BookDao.save("data\\trueBook.txt", BookDao.tBook);
+	 			break;
+	 				
+	 		}
+	 			
+	 	}
+		
+		for (BookVo f : BookDao.fBook) {
+			
+			if (isbn.equals(f.getISBN())) {
+				
+				BookDao.fBook.remove(f);
+	 	    	BookDao.save("data\\falseBook.txt", BookDao.fBook);
+	 	    	break;
 	 	    								
-	 	    			}
-	 	    							
-	 	    		}
-	 	    		
-	 	    		System.out.println("도서 삭제가 완료되었습니다.");
-	 	    		return;
-	
-	 	    	} else if (answer.equalsIgnoreCase("N")) {
-	 	            	
-	 	            System.out.println("도서 삭제가 취소되었습니다.");
-	 	            break;
-	 	                
-	 	        } else {
-	 	            	
-	 	            System.out.println("Y 또는 N을 입력하세요.");
-	 	                
-	 	        }
-	 	        
 	 	    }
-	        
-	    }
-
+	 	    
+	 	}
+	 	
 	}
 
 }
