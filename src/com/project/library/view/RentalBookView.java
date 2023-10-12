@@ -74,7 +74,7 @@ public class RentalBookView {
 				input = scan.nextLine();
 				
 				if (input.equalsIgnoreCase("Y")) {
-					cal.add(cal.DATE, 7);
+					cal.add(cal.DATE, 6);
 					
 					Controller.addRentalBook();
 					

@@ -33,7 +33,6 @@ public class RentalBookDao {
 		
 		try {
 
-			RentalBookDao.list.clear();
 
 			BufferedReader reader = new BufferedReader(new FileReader(path));
 			
@@ -221,7 +220,9 @@ public class RentalBookDao {
 			if (r.getISBN().equals(isbn)) {
 				
 				if (r.getReturnFlag().equalsIgnoreCase("Y")) {
-					return true; //"Y" 반납 완료면 대출 가능 > true 반환
+
+//					return true; //"Y" 반납 완료면 대출 가능 > true 반환
+					continue;
 				} else {
 					return false; //"N" 반납 전이면 대출 불가 > false 반환
 				}

@@ -40,8 +40,6 @@ public class BookDao {
 	private static void bookLoad(String dir, ArrayList<BookVo> list) {
 		try {
 			
-			list.clear();
-			
 			BufferedReader reader=new BufferedReader(new FileReader(dir));
 			
 			String line=null;

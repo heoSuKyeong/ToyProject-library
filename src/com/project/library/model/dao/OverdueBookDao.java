@@ -24,8 +24,6 @@ public static ArrayList<OverdueBookVo> list;
 		try {
 			
 
-			OverdueBookDao.list.clear();
-
 			BufferedReader reader = new BufferedReader(new FileReader(path));
 			
 			String line = null;
