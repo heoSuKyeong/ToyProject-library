@@ -29,7 +29,7 @@ public static ArrayList<OverdueBookVo> list;
 			
 			while ((line = reader.readLine()) != null) {
 				
-				String[] temp = line.split(",");
+				String[] temp = line.split("\\|");
 				
 				OverdueBookVo o = new OverdueBookVo(temp[0], Integer.parseInt(temp[1]), temp[2], temp[3]);
 				
@@ -54,7 +54,7 @@ public static ArrayList<OverdueBookVo> list;
 			
 			for (OverdueBookVo o : list) {
 				
-				writer.write(String.format("%s,%d,%s,%s\r\n"
+				writer.write(String.format("%s|%d|%s|%s\r\n"
 										, o.getUserNo()
 										, o.getRentalNo()
 										, o.getDelinquencyStartDate()
