@@ -41,8 +41,8 @@ public class MainView {
 
 
 	private static void load() {
-		BookDao.load();
-		RentalBookDao.load();
+//		BookDao.load();
+//		RentalBookDao.load();
 		UserDao.load();
 		OverdueBookDao.load();
 		
