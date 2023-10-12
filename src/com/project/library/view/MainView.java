@@ -3,6 +3,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.project.library.model.dao.BookDao;
+import com.project.library.model.dao.OverdueBookDao;
+import com.project.library.model.dao.RentalBookDao;
+import com.project.library.model.dao.UserDao;
+
 
 public class MainView {
 
@@ -36,12 +41,16 @@ public class MainView {
 
 
 	private static void load() {
-
+		BookDao.load();
+		RentalBookDao.load();
+		UserDao.load();
+		OverdueBookDao.load();
 		
 	}
 
 	public static void save() {
-
+		BookDao.save();
+		RentalBookDao.save();
 		
 		
 	}

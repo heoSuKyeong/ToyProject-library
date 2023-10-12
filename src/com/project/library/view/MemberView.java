@@ -28,7 +28,7 @@ public class MemberView {
 			Controller.dash();
 			
 			switch(input) {
-				case 1 : rentalbook();break;
+				case 1 : RentalBookView.rentalBookView();break;
 				case 2 : returnBook();break;
 				case 3 : applyBookView();break;
 				case 4 : rentalChView();break;

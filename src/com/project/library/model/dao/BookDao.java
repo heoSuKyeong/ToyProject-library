@@ -1,16 +1,21 @@
 package com.project.library.model.dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.project.library.model.vo.BookVo;
 import com.project.library.model.vo.RentalBookVo;
 
 public class BookDao {
 
-	
+	public static BookVo book; //ISBN을 입력받아 해당하는 책의 정보를 저장하는 변수	
+
 	public static ArrayList<BookVo> tBook;
 	public static ArrayList<BookVo> fBook;
 	
@@ -21,8 +26,8 @@ public class BookDao {
 	
 	public static void load() {
 		
-		String dir1=".\\data\\trueBook.txt";
-		String dir2=".\\data\\falseBook.txt";
+		String dir1="data\\trueBook.txt";
+		String dir2="data\\falseBook.txt";
 		
 		bookLoad(dir1, tBook);
 		bookLoad(dir2, fBook);
@@ -31,6 +36,7 @@ public class BookDao {
 		
 	}
 
+	
 	private static void bookLoad(String dir, ArrayList<BookVo> list) {
 		try {
 			
@@ -83,84 +89,105 @@ public class BookDao {
 		
 	}
 
-	public static int addBook(String title, String ISBN, String publisher, String author) {
-		int result=1;
+	
+	private static void bookSave(String dir, ArrayList<BookVo> list) {
 		
-		for(BookVo b : tBook) {
-			if(b.getISBN().equals(ISBN)) {
-				result=-1;
-			}
-		}
-		for(BookVo b : fBook) {
-			if(b.getISBN().equals(ISBN)) {
-				result=-1;
-			}
-		}
-		
-		if(result == 1) {
-			BookVo b=new BookVo();
-			b.setTitle(title);
-			b.setISBN(ISBN);
-			b.setPublisher(publisher);
-			b.setAuthor(author);
+		try {
 			
-			Random rnd=new Random();
-			int temp=rnd.nextInt(700)+100;
-			String name=author.substring(0,1);
-			b.setLocation(temp + "." + name);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(dir));
 			
-			fBook.add(b);
-		}
-		
-		
-		return result;
-	}
+			for (BookVo b : list) {
 
-	public static int bookDel(String ISBN) {
-		int result=-1;
-		
-		for(BookVo b : tBook) {
-			if(b.getISBN().equals(ISBN)) {
-				result=1;
-			}
-		}
-		for(BookVo b : fBook) {
-			if(b.getISBN().equals(ISBN)) {
-				result=1;
-			}
-		}
-		
-		if(result == 1) {
-			for(RentalBookVo b : RentalBookDao.rbs) { //렌탈중인지 확인
-				if(b.getISBN().equals(ISBN) && b.getReturnFlag().equals("N")) {
-					result=0;
-				}
-			}
-		}
-		
-		if(result == 1) {//도서 삭제
-			for(int i=0; i<tBook.size(); i++) {
-				if(tBook.get(i).getISBN().equals(ISBN)) {
-					tBook.remove(i);
-				}
+				writer.write(String.format("%s|%s|%s|%s|%s\r\n"
+										, b.getISBN()
+										, b.getTitle()
+										, b.getAuthor()
+										, b.getPublisher()
+										, b.getLocation()));
 			}
 			
-			for(int i=0; i<fBook.size(); i++) {
-				if(fBook.get(i).getISBN().equals(ISBN)) {
-					fBook.remove(i);
-				}
-			}
+			writer.close();
 			
+		} catch (Exception e) {
+			System.out.println("at BookDao.save");
+			e.printStackTrace();
 		}
-		
-		
-		
-		
-		return result;
-		
 		
 	}
 	
+	public static void save() {
+		
+		String dir1="data\\trueBook.txt";
+		String dir2="data\\falseBook.txt";
+		
+		bookSave(dir1, tBook);
+		bookSave(dir2, fBook);
+		
+	}
+	
+	
+	public static int addBook(String isbn) {
+		
+		//ISBN 유효성 검사
+		
+		if (!isValidIsbn(isbn)) {
+			
+			return -1;
+		}
+		
+		
+		for (BookVo b : BookDao.fBook) {
+			
+			if (b.getISBN().equals(isbn)) {
+				return -2;
+			}
+		}
+		
+		for (BookVo b : BookDao.tBook) {
+			
+			if (b.getISBN().equals(isbn)) {
+				return -2;
+			}
+		}
+		
+		return 1;
+		
+	}
+	
+	private static boolean isValidIsbn(String isbn) {
+
+		String regex = "^\\d$";
+		Pattern p1 = Pattern.compile(regex);
+		Matcher m1 = p1.matcher(isbn);
+		
+		if (!m1.find()) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+
+	public static String addBookList(String title, String isbn, String author, String publisher) {
+		
+		String location = createLocation(author);
+		
+		BookVo f = new BookVo(isbn, title, author, publisher, location);
+		
+		BookDao.fBook.add(f);
+		
+		return location;
+	}
+	
+	//도서 위치를 랜덤으로 생성하는 메서드
+	private static String createLocation(String author) {
+
+		//기존 위치와 중복검사를 진행해야 하나? 근데 한 위치에 여러개있을수도있쨔낭 이거잠깐 보류
+		Random random = new Random();
+		
+		return (random.nextInt(701) + 100) + "." + author.substring(0, 1);
+		
+	}//createLocation
 	
 	
 	
