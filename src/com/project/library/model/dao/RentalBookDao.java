@@ -149,7 +149,7 @@ public class RentalBookDao {
 			if (r.getUserNo().equalsIgnoreCase(UserDao.auth.getUserNo())) {
 				LocalDate date = LocalDate.parse(r.getRentalDate(), DateTimeFormatter.ISO_DATE);
 //				System.out.println("대출날짜: " + date);
-				LocalDate sevenDaysAfter = date.plusDays(7);
+				LocalDate sevenDaysAfter = date.plusDays(6);
 //				System.out.println("반납기한 날짜: " + sevenDaysAfter);
 				
 				if(r.getReturnFlag().equalsIgnoreCase("N") && now.isAfter(sevenDaysAfter)) {
