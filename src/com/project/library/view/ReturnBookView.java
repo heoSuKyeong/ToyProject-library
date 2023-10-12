@@ -73,7 +73,7 @@ public class ReturnBookView {
 					
 					boolean result = Controller.checkValidation(list, num);
 					
-					if (result) {
+					if (!result) {
 						
 						System.out.println("올바른 번호를 입력하세요.");
 						Controller.msg2();
