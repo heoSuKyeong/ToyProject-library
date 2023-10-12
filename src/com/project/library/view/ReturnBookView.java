@@ -88,7 +88,13 @@ public class ReturnBookView {
 							
 							Calendar availableDate = Controller.returnBook(list, num);
 							System.out.println("반납이 완료되었습니다.");
-							System.out.printf("%tF부터 대출 가능합니다.\n", availableDate);
+							
+							if (availableDate.get(Calendar.YEAR) != 1) {
+								
+								System.out.printf("%tF부터 대출 가능합니다.\n", availableDate);
+								
+							}
+							
 							Controller.msg();
 							break;
 							

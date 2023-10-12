@@ -80,9 +80,19 @@ public class ReturnBookDao {
 	        
 	        RentalBookDao.save();
 	        
-	        long overtime = today.getTimeInMillis() - getReturnDue(b).getTimeInMillis();
-	        int overDate = (int) (overtime / 1000 / 60 / 60 / 24) + 1;
-	        today.add(Calendar.DATE, overDate);
+	        Calendar returnDue = getReturnDue(b);
+	        
+	        if (today.compareTo(returnDue) == 1) {
+	        	
+	        	long overtime = today.getTimeInMillis() - returnDue.getTimeInMillis();
+		        int overDate = (int) (overtime / 1000 / 60 / 60 / 24) + 1;
+		        today.add(Calendar.DATE, overDate);
+	        	
+	        }  else {
+		    	
+		    	today.set(0, 0, 1);
+		    	
+		    }
 	        
 	    }
 	    
