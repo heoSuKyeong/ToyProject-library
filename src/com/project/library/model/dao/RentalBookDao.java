@@ -10,11 +10,11 @@ import com.project.library.model.vo.RentalBookVo;
 
 public class RentalBookDao { // 나의 대출 이력 조회
 	
-	public static ArrayList<RentalBookVo> rbs;
+	public static ArrayList<RentalBookVo> list;
 	
 	static {
 		
-		rbs = new ArrayList<RentalBookVo>();
+		list = new ArrayList<RentalBookVo>();
 	}
 	
 	public static void load() {
@@ -39,7 +39,7 @@ public class RentalBookDao { // 나의 대출 이력 조회
 				rb.setReturnDate(temp[4]);
 				rb.setReturnFlag(temp[5]);
 				
-				rbs.add(rb);
+				list.add(rb);
 				
 			}
 			
@@ -61,7 +61,7 @@ public class RentalBookDao { // 나의 대출 이력 조회
 			
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 			
-			for (RentalBookVo b : RentalBookDao.rbs) {
+			for (RentalBookVo b : RentalBookDao.list) {
 				
 				writer.write(String.format("%s|%s|%s|%s|%s|%s\n",
 										    b.getNum(), b.getUserNo(), b.getISBN(), b.getRentalDate(), b.getReturnDate(), b.getReturnFlag()));

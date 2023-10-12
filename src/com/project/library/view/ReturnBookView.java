@@ -17,8 +17,6 @@ public class ReturnBookView {
 		
 		while (true) {
 			
-			Controller.dash();
-
 			Controller.title("도서 반납");
 			
 			ArrayList<RentalBookVo> list = Controller.getRentalBooks();
@@ -64,12 +62,12 @@ public class ReturnBookView {
 						
 				}
 					
-				Controller.doubleDash();
+				Controller.dash();
 						
 				while (true) {
 							
 					System.out.print("반납할 도서의 일련번호를 입력하세요: ");
-					int num = scan.nextInt();
+					String num = scan.nextLine();
 					
 					boolean result = Controller.checkValidation(list, num);
 					
@@ -81,7 +79,7 @@ public class ReturnBookView {
 					} else {
 						
 						Controller.dash();
-						System.out.print("해당 도서를 삭제하시겠습니까?(Y/N): ");
+						System.out.print("해당 도서를 반납하시겠습니까?(Y/N): ");
 						String answer = scan.nextLine();
 						
 						if (answer.equalsIgnoreCase("Y")) {
@@ -94,8 +92,7 @@ public class ReturnBookView {
 								System.out.printf("%tF부터 대출 가능합니다.\n", availableDate);
 								
 							}
-							
-							Controller.msg();
+
 							break;
 							
 						}  else if (answer.equalsIgnoreCase("N")) {

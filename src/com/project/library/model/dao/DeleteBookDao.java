@@ -8,9 +8,6 @@ public class DeleteBookDao {
 	// 해당 도서의 존재 확인
 	public static boolean checkBookExistence(String isbn) {
 		
-		BookDao.load();
-		RentalBookDao.load();
-		
 		boolean isBookExisted = false;
 		
 		for (BookVo t : BookDao.tBook) {
@@ -44,7 +41,7 @@ public class DeleteBookDao {
 		
 		boolean isBookRented = false;
     	
-	    for (RentalBookVo b : RentalBookDao.rbs) {
+	    for (RentalBookVo b : RentalBookDao.list) {
 	    		
 	    	if (isbn.equals(b.getISBN())) {
 	    		

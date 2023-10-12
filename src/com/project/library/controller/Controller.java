@@ -136,6 +136,7 @@ public class Controller {
 		
 	}
 
+	// --------------------------  수민  --------------------------------
 
 	// 도서 반납
 	public static void returnBookView() {
@@ -150,11 +151,11 @@ public class Controller {
 		return ReturnBookDao.getReturnDue(b);
 	}
 	
-	public static boolean checkValidation(ArrayList<RentalBookVo> list, int num) {
+	public static boolean checkValidation(ArrayList<RentalBookVo> list, String num) {
 		return ReturnBookDao.checkValidation(list, num);
 	}
 	
-	public static Calendar returnBook(ArrayList<RentalBookVo> list, int num) {
+	public static Calendar returnBook(ArrayList<RentalBookVo> list, String num) {
 		return ReturnBookDao.returnBook(list, num);
 	}
 	
@@ -175,7 +176,7 @@ public class Controller {
 		DeleteBookDao.deleteBook(isbn);
 	}
 
-	
+	// ------------------------------------------------------------------
 
 	public static void save() {
 		MainView.save();

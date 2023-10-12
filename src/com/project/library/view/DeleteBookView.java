@@ -10,8 +10,6 @@ public class DeleteBookView {
 		
 		Scanner scan = new Scanner(System.in);
 			
-		Controller.dash();
-			
 		Controller.title("도서 삭제");
 			
 		System.out.print("삭제할 도서의 ISBN을 입력하세요: ");
@@ -33,9 +31,10 @@ public class DeleteBookView {
 
 			} else {
 				
+				Controller.dash();
+				
 				while (true) {
-					
-					Controller.dash();
+
 					System.out.print("해당 도서를 삭제하시겠습니까?(Y/N): ");
 					String answer = scan.nextLine();
 					
