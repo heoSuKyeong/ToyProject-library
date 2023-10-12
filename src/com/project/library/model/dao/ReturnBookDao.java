@@ -1,5 +1,7 @@
 package com.project.library.model.dao;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -87,6 +89,20 @@ public class ReturnBookDao {
 	        	long overtime = today.getTimeInMillis() - returnDue.getTimeInMillis();
 		        int overDate = (int) (overtime / 1000 / 60 / 60 / 24) + 1;
 		        today.add(Calendar.DATE, overDate);
+		        
+		        try {
+					
+					BufferedWriter writer = new BufferedWriter(new FileWriter(String.format("data\\overdueBook.txt")));
+					
+					writer.write(String.format("%s|%s|%tF|%tF\n", UserDao.auth.getUserNo(), num, returnDue, today));
+							
+					writer.close();
+					
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+					
+				}
 	        	
 	        }  else {
 		    	
