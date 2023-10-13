@@ -78,35 +78,41 @@ public class ReturnBookView {
 
 					} else {
 						
-						Controller.dash();
-						System.out.print("해당 도서를 반납하시겠습니까?(Y/N): ");
-						String answer = scan.nextLine();
-						
-						if (answer.equalsIgnoreCase("Y")) {
+						while (true) {
 							
-							Calendar availableDate = Controller.returnBook(list, num);
-							System.out.println("반납이 완료되었습니다.");
+							Controller.dash();
+							System.out.print("해당 도서를 반납하시겠습니까?(Y/N): ");
+							String answer = scan.nextLine();
 							
-							if (availableDate.get(Calendar.YEAR) != 1) {
+							if (answer.equalsIgnoreCase("Y")) {
 								
-								System.out.printf("%tF부터 대출 가능합니다.\n", availableDate);
+								Calendar availableDate = Controller.returnBook(list, num);
+								System.out.println("반납이 완료되었습니다.");
 								
-							}
+								if (availableDate.get(Calendar.YEAR) != 1) {
+									
+									System.out.printf("%tF부터 대출 가능합니다.\n", availableDate);
+									
+								}
 
-							break;
+								break;
+								
+							}  else if (answer.equalsIgnoreCase("N")) {
+						 		
+						 		System.out.println("반납이 취소되었습니다.");
+						 		break;
+						 		
+						 	} else {
+						 		
+						 		System.out.println("Y 또는 N을 입력하세요.");
+						 		Controller.msg2();
+						 		
+						 	}
 							
-						}  else if (answer.equalsIgnoreCase("N")) {
-					 		
-					 		System.out.println("반납이 취소되었습니다.");
-					 		break;
-					 		
-					 	} else {
-					 		
-					 		System.out.println("Y 또는 N을 입력하세요.");
-					 		Controller.msg2();
-					 		
-					 	}
+						}
 						
+						break;
+
 					}
 					
 				}
