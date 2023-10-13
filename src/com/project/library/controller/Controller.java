@@ -43,10 +43,10 @@ public class Controller {
 		
 	}
 
-	public static ArrayList<RentalBookVo> rentalbook() {
-		ArrayList<RentalBookVo> result=RentalBookDao.getRentalBook();
-		return result;
-	}
+//	public static ArrayList<RentalBookVo> rentalbook() {
+//		ArrayList<RentalBookVo> result=RentalBookDao.getRentalBook();
+//		return result;
+//	}
 
 
 	public static ArrayList<ApplyBookVo> applyBooks() {
@@ -60,12 +60,8 @@ public class Controller {
 		
 	}
 	
-	public static int login(String id, String pw) {
-		int result=0;
-		result=UserDao.loginCh(id,pw);
-		
-		return result; 
-		
+	public static String login(String id, String pw) {
+		return UserDao.checkLogin(id, pw);
 	}
 	
 	//회원가입
@@ -94,24 +90,24 @@ public class Controller {
 		
 	}
 
-	public static boolean memberRentalCh() {
-		boolean result=false;
-		result=RentalBookDao.memberRentalCh();
-		
-		return result;
-	}
+//	public static boolean memberRentalCh() {
+//		boolean result=false;
+//		result=RentalBookDao.memberRentalCh();
+//		
+//		return result;
+//	}
 
-	public static boolean addRentalBook(BookVo book) {
-		boolean result=false;
-		result=RentalBookDao.rentalBook(book);
-		return result;
-		
-	}
+//	public static boolean addRentalBook(BookVo book) {
+//		boolean result=false;
+//		result=RentalBookDao.rentalBook(book);
+//		return result;
+//		
+//	}
 
-	public static String returnBook() {
-		
-		return RentalBookDao.returnBook();
-	}
+//	public static String returnBook() {
+//		
+//		return RentalBookDao.returnBook();
+//	}
 
 	public static int newPw(String pw, String nPw) {
 		int result=UserDao.chagePw(pw, nPw);
@@ -119,17 +115,11 @@ public class Controller {
 		return result;
 	}
 
-	public static int addBook(String title, String ISBN, String publisher, String author) {
-		int result=BookDao.addBook(title, ISBN, publisher, author);
-		
-		return result;
-		
-	}
 
-	public static int bookDel(String ISBN) {
-		int result=BookDao.bookDel(ISBN);
-		return result;
-	}
+//	public static int bookDel(String ISBN) {
+//		int result=BookDao.bookDel(ISBN);
+//		return result;
+//	}
 
 	public static void applyBooksSatus(int count, int select) {
 		ApplyBookDao.applyBooksSatus(count, select);
@@ -181,5 +171,31 @@ public class Controller {
 	public static void save() {
 		MainView.save();
 	}
+
+	//-------------------------나래---------------
+	
+	public static int rentalByISBN(String isbn) {
+		RentalBookDao.getBookInfo(isbn);
+		return RentalBookDao.rentalByISBN(isbn);
+	}
+	
+	public static void addRentalBook() {
+		RentalBookDao.addRentalBook();
+	}
+	
+//	public static BookVo getBookInfo(String isbn) {
+//		return BookDao.book;
+//	}
+
+	public static int addBook(String isbn) {
+		return BookDao.addBook(isbn);
+		
+	}
+	
+	public static String addBookList(String title, String isbn, String author, String publisher) {
+		return BookDao.addBookList(title, isbn, author, publisher);
+	}
+
+
 
 }

@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import com.project.library.controller.Controller;
 import com.project.library.model.dao.ApplyBookDao;
+import com.project.library.model.dao.BookDao;
+import com.project.library.model.dao.UserDao;
 import com.project.library.model.vo.ApplyBookVo;
 
 public class AdminView {
@@ -26,7 +28,8 @@ public class AdminView {
 			Controller.dash();
 
 			switch (input) {
-			case "1": bookAddView();break;
+
+			case "1": addBookView();break;
 			case "2": Controller.deleteBookView(); break;
 			case "3":
 				System.out.println("[연체 관리]");
@@ -151,6 +154,73 @@ public class AdminView {
 		}
 		
 		
+	
+	}
+
+	
+	private static void addBookView() {
+		Scanner scan = new Scanner(System.in);
+		
+//		Controller.dash();
+		Controller.title("도서 추가");
+		Controller.dash();
+
+		System.out.print("도서명: ");
+		String title = scan.nextLine();
+		
+		System.out.print("ISBN: ");
+		String isbn = scan.nextLine();
+		
+		System.out.print("저자: ");
+		String author = scan.nextLine();
+		
+		System.out.print("출판사: ");
+		String publisher = scan.nextLine();
+		
+		int result = Controller.addBook(isbn);
+		
+		if (result == -1) {
+			
+			System.out.println("올바른 ISBN을 입력해주세요.(숫자)");
+			Controller.msg();
+			return;
+			
+		} else if (result == -2) {
+			
+			System.out.println("기존에 등록된 도서입니다.");
+			Controller.msg();
+			return;
+			
+		}else if(result == 1) {
+
+			System.out.printf("<%s>도서를 추가하시겠습니까?(Y/N): ", title);
+			String input = scan.nextLine();
+			
+			if (input.equalsIgnoreCase("Y")) {
+				
+				String location = Controller.addBookList(title, isbn, author, publisher);
+				System.out.println("도서 추가가 완료되었습니다.");
+				Controller.doubleDash();
+				System.out.printf("도서명: %s\n", title);
+				System.out.printf("ISBN: %s\n", isbn);
+				System.out.printf("저자: %s\n", author);
+				System.out.printf("출판사: %s\n", publisher);
+				System.out.printf("위치: %s\n", location);
+				Controller.doubleDash();
+				
+				
+				
+			} else if (input.equalsIgnoreCase("N")) {
+				System.out.println("도서 추가가 취소되었습니다.");
+			} else {
+				System.out.println("Y/N으로 입력해주세요.");
+			}
+			
+			Controller.msg2();
+			
+			
+
+		}
 		
 	}
 

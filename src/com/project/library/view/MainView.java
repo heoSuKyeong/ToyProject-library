@@ -39,7 +39,7 @@ public class MainView {
 	}
 
 	private static void load() {
-		
+
 		BookDao.load();
 		RentalBookDao.load();
 		UserDao.load();
@@ -51,7 +51,7 @@ public class MainView {
 
 		BookDao.save();
 		RentalBookDao.save();
-
+		
 	}
 
 }
