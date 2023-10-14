@@ -260,6 +260,22 @@ public class RentalBookDao { // 나의 대출 이력 조회
 		RentalBookVo r = new RentalBookVo(list.size() + 1, UserDao.auth.getUserNo(), BookDao.book.getTitle(), BookDao.book.getISBN(), String.format("%tF", today), null,"N");
 		list.add(r);
 	}
+
+	//-------------------------수진
+	
+	public static ArrayList<RentalBookVo> getRentalBooks() {
+		ArrayList<RentalBookVo> bs =new ArrayList<RentalBookVo>();
+		
+		for(RentalBookVo b : list) {
+			if(b.getUserNo().equals(UserDao.auth.getUserNo())) { // 회원정보일치 대여책 가져오기 U100 은 회원번호, 나중에 로그인 정보에서 가져온거랑 바꾸기
+				bs.add(b);
+			}
+		}
+		
+		
+		
+		return bs;
+	}
 	
 	
 

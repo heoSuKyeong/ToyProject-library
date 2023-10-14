@@ -3,8 +3,10 @@
 import java.util.Scanner;
 
 import com.project.library.controller.Controller;
+import com.project.library.model.dao.ApplyBookDao;
 import com.project.library.model.dao.BookDao;
 import com.project.library.model.dao.OverdueBookDao;
+import com.project.library.model.dao.RefusalBookDao;
 import com.project.library.model.dao.RentalBookDao;
 import com.project.library.model.dao.UserDao;
 
@@ -44,6 +46,8 @@ public class MainView {
 		RentalBookDao.load();
 		UserDao.load();
 		OverdueBookDao.load();
+		ApplyBookDao.load();
+		RefusalBookDao.load();
 		
 	}
 
@@ -52,6 +56,7 @@ public class MainView {
 		BookDao.save();
 		RentalBookDao.save();
 		UserDao.save();
+		ApplyBookDao.save();
 	}
 	
 	public static void joinView() {

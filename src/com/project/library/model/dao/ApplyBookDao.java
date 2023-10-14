@@ -1,11 +1,12 @@
 package com.project.library.model.dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import com.project.library.model.vo.ApplyBookVo;
-import com.project.library.model.vo.RentalBookVo;
 
 public class ApplyBookDao {
 
@@ -53,6 +54,41 @@ public static ArrayList<ApplyBookVo> abs;
 		
 		
 	}
+	
+	
+	public static void save() {
+		
+		String dir="data\\apllyBook.txt";
+			
+		try {
+			
+			BufferedWriter write = new BufferedWriter(new FileWriter(dir));
+			
+			for(ApplyBookVo b : abs) {
+				
+				String temp = String.format("%s,%s,%s,%s,%s,%s,%s,%d\r\n"
+											,b.getUserNo()
+											,b.getApplyDate()
+											,b.getISBN()
+											,b.getTitle()
+											,b.getAuthor()
+											,b.getPublisher()
+											,b.getPrice()
+											,b.getApproval());
+				
+				
+				write.write(temp);
+			}
+			write.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	
 
 
 	public static ArrayList<ApplyBookVo> getBook() {

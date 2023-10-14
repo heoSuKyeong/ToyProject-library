@@ -6,6 +6,7 @@ import java.util.Calendar;
 import com.project.library.model.dao.ApplyBookDao;
 import com.project.library.model.dao.BookDao;
 import com.project.library.model.dao.DeleteBookDao;
+import com.project.library.model.dao.RefusalBookDao;
 import com.project.library.model.dao.RentalBookDao;
 import com.project.library.model.dao.ReturnBookDao;
 import com.project.library.model.dao.UserDao;
@@ -198,6 +199,19 @@ public class Controller {
 	
 	public static String addBookList(String title, String isbn, String author, String publisher) {
 		return BookDao.addBookList(title, isbn, author, publisher);
+	}
+
+	
+	//----------------수진
+	
+	public static ArrayList<RentalBookVo> rentalbooks() {
+		ArrayList<RentalBookVo> result=RentalBookDao.getRentalBooks();
+		return result;
+	}
+
+	public static String reason(String ISBN) {
+		return RefusalBookDao.reason(ISBN);
+		
 	}
 
 
