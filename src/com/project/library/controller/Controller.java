@@ -60,8 +60,12 @@ public class Controller {
 		
 	}
 	
-	public static String login(String id, String pw) {
-		return UserDao.checkLogin(id, pw);
+	public static int login(String id, String pw) {
+		int result=0;
+		result=UserDao.loginCh(id,pw);
+		
+		return result; 
+		
 	}
 	
 	//회원가입
