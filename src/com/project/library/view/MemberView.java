@@ -31,13 +31,13 @@ public class MemberView {
 
 				case 1 : RentalBookView.rentalBookView();break;
 				case 2 : Controller.returnBookView();break;
-				case 3 : applyBookView();break;
-				case 4 : rentalChView();break;
-				case 5 : if(chagePw() == 1) {
-							return;
-						} else {
-							break;
-						}
+				case 3 : //applyBookView();break;
+				case 4 : //rentalChView();break;
+//				case 5 : if(chagePw() == 1) {
+//							return;
+//						} else {
+//							break;
+//						}
 				case 6 : System.out.println("로그아웃되었습니다.");
 						Controller.save();
 						Controller.doubleDash();

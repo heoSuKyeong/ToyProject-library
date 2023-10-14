@@ -178,6 +178,7 @@ public class UserDao {
 		UserVo uv = new UserVo("U"+no, name, tel, email, id, pw, 1);
 		list.add(uv);
 		System.out.println("회원가입이 완료되었습니다.");
+		save();
 		
 	}
 	/*

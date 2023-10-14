@@ -13,6 +13,8 @@ public class AdminView {
 
 	public static void adminView() {
 		
+		System.out.println(UserDao.auth.getName() + " 관리자님 환영합니다.");
+		
 		Scanner scan = new Scanner(System.in);
 
 		while (true) {
