@@ -2,6 +2,7 @@
 
 import java.util.Scanner;
 
+//import com.project.erpsystem.dao.MypageDao;
 import com.project.library.controller.Controller;
 import com.project.library.model.dao.UserDao;
 
@@ -33,11 +34,15 @@ public class MemberView {
 				case 2 : Controller.returnBookView();break;
 				case 3 : ApplyBookView.applyBookView();break;
 				case 4 : RentalBookListView.rentalChView();break;
-//				case 5 : if(chagePw() == 1) {
-//							return;
-//						} else {
-//							break;
-//						}
+				case 5 : 
+				// 비밀번호 변경 메서드
+				if (ChangePw.changePw() == 1) {
+					break;
+				} else {
+//					InitialView.erpStart();
+//					return 0;
+//					break;
+				}
 				case 6 : System.out.println("로그아웃되었습니다.");
 						Controller.save();
 						Controller.doubleDash();
